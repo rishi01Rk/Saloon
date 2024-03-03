@@ -11,7 +11,7 @@
         session_start();
         $num = $_SESSION['id'];
         // echo $num;
-        $query = " SELECT * FROM reg where auto_id =  $num ";
+        $query = " SELECT * FROM users where id =  $num ";
         $result = mysqli_query($conn, $query);
         $record = mysqli_fetch_assoc($result);
         // echo $record["regno"];
@@ -19,14 +19,14 @@
     <form action="updateD.php" method="post">
         <table>
             <tr>
-                <td>  <label for="regno">Reg no</label> </td>
-                <td> <input type="text" name="regno" id="regno" value="<?php echo $record['regno'] ?>" > </td>
+                <td>  <label for="name">Name</label> </td>
+                <td> <input type="text" name="name" id="name" value="<?php echo $record['fullname'] ?>" > </td>
             </tr>
             <tr> 
-                <td> <label for="name">Name</label> </td> 
-                <td> <input type="text" name="name" id="name" value="<?php echo $record['name'] ?>"> </td>
+                <td> <label for="email">Email</label> </td> 
+                <td> <input type="email" name="email" id="email" value="<?php echo $record['email'] ?>"> </td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td> <label for="dob">Date of birth</label> </td>
                 <td> <input type="date" name="dob" id="dob" value="<?php  echo $record['dob'] ?>"> </td>
             </tr>
@@ -41,7 +41,7 @@
                     <label for="genderF">F</label>
                 </td>
 
-            </tr>
+            </tr>-->
             <tr>
                 <td> <input type="Submit" value="Submit" name="submit"> </td>
             </tr>

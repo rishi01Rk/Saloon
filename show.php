@@ -9,17 +9,18 @@
 <table>
         <tr>
             <th><h4> <a href="index.html">Log Out</a> </h4></th>
-            <th><h4><a href="insert.php">Insert details</a></h4></th>
+            <th><h4><a href="sign.html">Insert details</a></h4></th>
             <th><h4><a href="Show.php">Show Details</a></h4></th>
         </tr>
     </table>
 
     <table border="1">
         <tr>
-            <td>Reg No</td>
+            
             <td>Name</td>
-            <td>Date ofbirth</td>
-            <td>Gender</td>
+            <td>Email</td>
+            
+
             <td>UPDATE</td>
             <td>DELETE</td>
         </tr>
@@ -27,23 +28,23 @@
         <?php
             include("conn.php");
 
-            $selectQuery = "SELECT * from reg";
+            $selectQuery = "SELECT * from users";
             $result = mysqli_query($conn, $selectQuery);
             if(mysqli_num_rows($result) > 0){
                 while($record = mysqli_fetch_assoc($result)){
                     echo "<tr>";
-                    echo "<td>".$record['regno']."</td>";
-                    echo "<td>".$record['name']."</td>";
-                    echo "<td>".$record['dob']."</td>";
-                    echo "<td>".$record['gender']."</td>";
-                    echo "<td><a href='?adu={$record['auto_id']}'>UPDATE</a></td>";
-                    echo "<td><a href='" . $_SERVER["PHP_SELF"] . "?id={$record['auto_id']}'>DELETE</a></td>";
+              
+                    echo "<td>".$record['fullname']."</td>";
+                    echo "<td>".$record['email']."</td>";
+                    
+                    echo "<td><a href='?adu={$record['id']}'>UPDATE</a></td>";
+                    echo "<td><a href='" . $_SERVER["PHP_SELF"] . "?id={$record['id']}'>DELETE</a></td>";
                     echo "</tr>";
                 }
             }
 
             if(!empty($_GET["id"])){
-                $deleteQuery = "DELETE FROM reg WHERE auto_id = '{$_GET['id']}'";
+                $deleteQuery = "DELETE FROM users WHERE id = '{$_GET['id']}'";
                 $deleteResult = mysqli_query($conn, $deleteQuery);
                 if($deleteResult){
                     header("location:show.php");

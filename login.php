@@ -1,48 +1,43 @@
 <?php
-// $server = "localhost";
-// $username = "root";
-// $password = "";
-// $databse = "form";
+session_start(); // Start the session
 
-// $conn = mysqli_connect($server, $username, $password, $databse);
 include("conn.php");
 
 $name = $_POST['username'];
-$pass = $_POST['password'];
+$password = $_POST['password'];
 
 $checkad = false;
-$checkuse=false;
+$checkuse = false;
 
-if($conn){
-    //admin
-    $slect_query = "SELECT  * FROM Login";
+if ($conn) {
+    // Admin
+    $slect_query = "SELECT * FROM Login";
     $result = mysqli_query($conn, $slect_query);
-    if(mysqli_num_rows($result) > 0){
-        while($record = mysqli_fetch_assoc($result)){
-            if($name === $record['username'] && $pass === $record['password']){
+    if (mysqli_num_rows($result) > 0) {
+        while ($record = mysqli_fetch_assoc($result)) {
+            if ($name === $record['username'] && $password === $record['password']) {
                 $checkad = true;
+                $_SESSION['username'] = $name; // Set the username to a session variable
             }
         }
     }
-    $slect_quer = "SELECT  * FROM users ";
-    $resultu = mysqli_query($conn, $slect_quer);
-    if(mysqli_num_rows($resultu) > 0){
-        while($recor = mysqli_fetch_assoc($resultu)){
-            if($name === $recor['email'] && $pass === $recor['password']){
+
+    // User
+    $slect_query = "SELECT * FROM users ";
+    $result = mysqli_query($conn, $slect_query);
+    if (mysqli_num_rows($result) > 0) {
+        while ($record = mysqli_fetch_assoc($result)) {
+            if ($name === $record['email'] && $password === $record['password']) {
                 $checkuse = true;
+                $_SESSION['username'] = $name; // Set the username to a session variable
             }
         }
     }
 }
-
-
 
 if ($checkad)  header("location:show.php");
-elseif($checkuse) header("location:user.php");
-
-else{
+if ($checkuse) header("location:user.php");
+else {
     echo "Login Fail";
 }
-
-
 ?>
